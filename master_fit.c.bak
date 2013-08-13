@@ -1,0 +1,116 @@
+#include <ctype.h>
+#include <dirent.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+
+#include <sys/queue.h>
+#include <sys/resource.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+
+#include "common.h"
+#include "pvm3.h"
+
+#define MAXNCHILD 4
+
+void 
+population_fitness(struct pop_c* pop_conf, struct state** population);
+{
+
+	int ntask = MAXNCHILD;
+	int info;
+	int mytid;
+	int child[MAXNCHILD];
+	int i, mydata, buf, len, tag, tid;
+	mytid = pvm_mytid();
+
+	if (mytid < 0) 
+	{ 
+		pvm_perror(argv[0]); 
+		return -1;
+	}
+
+	/* Any prints to std out from children will be printed by the master */
+	info = pvm_catchout(stdout);
+	if(info < 0) pvm_perror("catchout");
+
+	printf("spawning kids\n");
+	/* spawn the child tasks */
+	info = pvm_spawn("pitness", (char**)0, PvmTaskDefault, (char*)0,
+	    ntask, child);
+	/* print out the task ids */
+	for (i = 0; i < ntask; i++) 
+	{
+		if (child[i] < 0) /* print the error code in decimal*/
+			printf(" %d", child[i]);
+		else 
+			printf("t%x\t", child[i]);
+	}
+	putchar('\n');
+	/* make sure spawn succeeded */
+	if (info == 0) 
+		pvm_exit(); return -1;
+
+	/* only expect responses from those spawned correctly */
+	ntask = info;
+
+
+	i = j = 0; 
+	int fit_id[2], j;
+	while ((i < pop_conf->pop_size) || (j < pop_conf->pop_size))  {
+		  mydata = 1, tid = 2;
+		  pvm_initsend(PvmDataDefault);
+		/*wtf is this inner while loop */
+		  while(mydata != tid){
+			buf = pvm_recv(-1, -1);
+			if(buf < 0) 
+				pvm_perror("calling recv in for each");
+			info = pvm_bufinfo(buf, &len, &tag, &tid);
+			if(info < 0) 
+				pvm_perror("calling pvm_bufinfo"); 
+
+			/* this if needs to be expanded to handle the case 
+			 * where tid is sending a message saying it failed to 
+			 * sort the data 
+			 */
+			if(tag == FITNESS_TAG) 
+			{
+				info = pvm_upkint(fit_id, 2, 1);
+				if(info < 0) pvm_perror("calling pvm_upkint");
+				population[fit_id[0]]->fitness = fit_id[1];	
+				j++;
+			}						
+			else 
+			{
+				info = pvm_upkint(&mydata, 1, 1);
+				if(info < 0) pvm_perror("calling pvm_upkint");
+				pvm_pkint(population[i]->configuration, 
+				    pop_conf->n, 1);
+				pvm_send(tid, i);
+				printf("jorb sent to blah %d\n", tid);
+				i++;
+			}
+		  }
+	}
+	/* all files have been sent, and so we send the kill signal to all child
+	 *  processes once they're ready 
+	 */
+	while(ntask--) {
+		buf = pvm_recv(-1,2);
+		if(buf < 0) 
+			pvm_perror("calling recv in kill");
+		info = pvm_bufinfo(buf, &len, &tag, &tid);
+		if(info < 0) 
+			pvm_perror("calling pvm_bufinfo in for each");
+		printf("sending kill to %d\n",tid);
+		info = pvm_kill(tid);
+		if(info < 0) 
+			pvm_perror("couldn't kill");
+	}
+	pvm_exit();
+	return 0;
+
+}

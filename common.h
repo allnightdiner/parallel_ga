@@ -15,6 +15,7 @@ struct state {
 	int* configuration;
 };
 
+/* population configuration struct. */
 struct pop_c {
 	int id;
 	int pop_size;
@@ -32,6 +33,7 @@ struct pop_c {
 	int n_of_runs;
 };
 
+/* Struct to hold population fitness statistics */
 struct pop_s {
 	int* avg_fit;
 	int* best_fit;
@@ -40,6 +42,9 @@ struct pop_s {
 	int* last_generation;
 };
 
+/* test configuration, used to test ranges of specifc values for a particular
+ * aspect of the GA like crossover, mutation, etc
+ */
 struct test_c {
 	char* test_id;
 	int* to_test;

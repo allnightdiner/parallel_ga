@@ -63,8 +63,10 @@ void multiple_runs(struct pop_c* pop_conf, char* file_id)
 	stats_init(pop_conf, pop_stats);
 	int i;
 	pop_conf->id = 0;
+	printf("number of runs: %d...\n", pop_conf->n_of_runs);
 	for(i = 0; i < pop_conf->n_of_runs; i++)
 	{
+		printf("run %d\n", i);
 		pop_conf->id = i;
 		full_run(pop_conf, pop_stats, file_id);	
 		af_to_file(pop_conf, pop_stats);
@@ -87,6 +89,7 @@ test(struct pop_c* pop_conf, struct test_c* test_conf)
 
 	for(*i = test_conf->start; *i <= test_conf->end; *i += test_conf->inc)
 	{
+		
 		sprintf(file_id, "%s_%d_solutions", test_conf->test_id, *i); 
 		multiple_runs(pop_conf, file_id);
 
@@ -116,7 +119,6 @@ main(int argc, char** argv)
 	test_conf->inc = 100;
 
 	test(pop_conf, test_conf);
-
 	return 0;
 }
 

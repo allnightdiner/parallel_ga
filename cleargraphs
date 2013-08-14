@@ -1,2 +1,0 @@
-rm -r /var/www/pics/
-mkdir /var/www/pics/

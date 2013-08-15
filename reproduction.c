@@ -7,9 +7,7 @@
 #include "common.h"
 #include "fitness.h"
 #include "pop_init.h"
-/* unnecesary? */
 #include "reproduction.h"
-/* unnecesary? */
 #include "ll.h"
 
 int rand_index(struct pop_c* pop_conf)
@@ -36,7 +34,6 @@ void cross_over(struct pop_c* pop_conf, struct state* old_a, struct state*
 {
 	int i;
 
-	//if(rand()%1000 < pop_conf->cross_rate)
 	if(R(1000) < pop_conf->cross_rate)
 	{
 		for(i = 0; i < pop_conf->n; i++)	
@@ -79,10 +76,8 @@ void mutate(struct pop_c* pop_conf, struct state* to_mutate)
 	int i;
 	for(i = 0; i < pop_conf->n; i++)
 	{
-		//if(rand()%1000 < pop_conf->mut_rate)
 		if(R(1000) < pop_conf->mut_rate)
 			to_mutate->configuration[i] = R(pop_conf->n);
-		//	to_mutate->configuration[i] = rand()%pop_conf->n;
 	}
 }
 
@@ -105,8 +100,9 @@ struct state** reproduction(struct pop_c* pop_conf, struct state** population)
 
 	for(i = 0; i < pop_conf->pop_size-1; i = i+2)
 	{
-		cross_over(pop_conf, population[rand_index(pop_conf)], population[R(pop_conf->pop_size)],new_population[i], new_population[i+1]); 
-		//cross_over(pop_conf, population[rand_index(pop_conf)], population[rand()% pop_conf->pop_size],new_population[i], new_population[i+1]); 
+		cross_over(pop_conf, population[rand_index(pop_conf)], 
+		    population[R(pop_conf->pop_size)],new_population[i], 
+		    new_population[i+1]); 
 	}
 	
 	for(i = 0; i < pop_conf->pop_size; i++)

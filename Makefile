@@ -13,6 +13,3 @@ old: main.c
 a.out: first.c
 	gcc -Wall -lm -o $@ ll.c  sort.c from_file.c to_file.c fitness.c pop_init.c  reproduction.c stats.c pop_sim.c $+
 
-clean:
-	echo is clean need compile
-	rm a.out old slave master

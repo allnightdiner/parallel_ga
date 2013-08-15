@@ -10,12 +10,14 @@
 #include "reproduction.h"
 #include "ll.h"
 
+/* This is a method of weighted individual selection that increases chances of
+ * selection based on fitness. Requires the population to be sorted by fitness.
+ */ 
 int rand_index(struct pop_c* pop_conf)
 {
 	int ret;
 	int i;
 	int idk = 0;
-	//ret = rand()%pop_conf->sum;
 	ret = R(pop_conf->sum);
 
 	for(i = 0; i <= pop_conf->pop_size; i++)
@@ -25,7 +27,7 @@ int rand_index(struct pop_c* pop_conf)
 		else
 			idk += pop_conf->pop_size - i;
 	}
-	printf("RADOM INDEX FAILURE\n");
+	printf("***RADOM INDEX FAILURE***\n");
 	return 0;
 }
 

@@ -14,7 +14,6 @@ initilization(struct pop_c* pop_conf, struct state** population)
 		population[i]->configuration = malloc(sizeof(int)*pop_conf->n);
 		for(j = 0; j < pop_conf->n; j++)
 		{
-			//population[i]->configuration[j]= (rand()%pop_conf->n);
 			population[i]->configuration[j] = (R(pop_conf->n));
 		}
 		population[i]->fitness = 0;
@@ -73,6 +72,5 @@ void pop_conf_init(struct pop_c* pop_conf)
 	//all rates are per 1000
 	pop_conf->cross_rate = 700;
 	pop_conf->mut_rate = 2;
-	pop_conf->inversion_rate = 2;
 	pop_conf->n_of_runs = 10;
 }

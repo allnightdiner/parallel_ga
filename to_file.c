@@ -6,7 +6,7 @@
 void mk_ff_plot(struct pop_c* pop_conf)
 {
 	int i;
-	char file_id[20];
+	char file_id[MAX_FILENAME_LEN];
 	char cmd[30];
 	sprintf(file_id, "%dffplot", pop_conf->id);
 	FILE* out = fopen(file_id, "w");
@@ -31,7 +31,7 @@ void mk_ff_plot(struct pop_c* pop_conf)
 
 void mk_af_plot(struct pop_c* pop_conf)
 {
-	char file_id[20];
+	char file_id[MAX_FILENAME_LEN];
 	char cmd[30];
 	sprintf(file_id, "%dafplot", pop_conf->id);
 	FILE* out = fopen(file_id, "w");
@@ -51,7 +51,7 @@ void mk_af_plot(struct pop_c* pop_conf)
 
 void mk_lg_plot(struct pop_c* pop_conf)
 {
-	char file_id[20];
+	char file_id[MAX_FILENAME_LEN];
 	char cmd[30];
 	sprintf(file_id, "lgplot");
 	FILE* out = fopen(file_id, "w");
@@ -71,7 +71,7 @@ void mk_lg_plot(struct pop_c* pop_conf)
 void af_to_file(struct pop_c* pop_conf, struct pop_s* pop_stats)
 {
 	int i;
-	char file_id[20];
+	char file_id[MAX_FILENAME_LEN];
 	sprintf(file_id, "%daf", pop_conf->id);
 	FILE* out = fopen(file_id, "w");
 	for(i = 0; i < pop_conf->length_of_run; i++)
@@ -86,7 +86,7 @@ void af_to_file(struct pop_c* pop_conf, struct pop_s* pop_stats)
 void ff_to_file(struct pop_c* pop_conf, struct pop_s* pop_stats)
 {
 	int i, j;
-	char file_id[20];
+	char file_id[MAX_FILENAME_LEN];
 	sprintf(file_id, "%dff", pop_conf->id);
 	FILE* out = fopen(file_id, "w");
 	for(i = 0; i < pop_conf->length_of_run; i++)

@@ -6,7 +6,8 @@
 #define GOAL_FIT	N
 #define SUM		((POP_SIZE * POP_SIZE) + POP_SIZE)/2
 */
-#define R(x)	(rand()/((RAND_MAX)/x+1))	
+#define R(x)			(rand()/((RAND_MAX)/x+1))	
+#define MAX_FILENAME_LEN	120
 
 /* These make up the individuals of the population. 
  * fitness: the fitness of this particular individual.

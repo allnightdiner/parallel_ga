@@ -13,4 +13,9 @@ A non PVM version of the GA can be generated with 'make a.out'
 
 first.c covers the main overview of this version. the main function in first.c can be configured to test a wide variety of parameters over multiple populations and generations. Examples of test_conf settings are at the bottom of the file. A particular parameter, start value, end value, and increment value can be configured for a parameter, and then "full runs" of the GA. Graphs are generated for each run of the GA for the full range of values that re being tested. Best Worst and average fitnesses are graphed and placed in a directory name based on the test_id for the test_c struct being used. 
 
+# TODO #
 
+There is a dangerous line in first.c that needs to be replaced:
+system("rm *f *plot");
+
+Working to generate all gnuplot files in a tmp working directory and then remove that instead of shitting all over the current working directory >:o

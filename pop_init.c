@@ -72,5 +72,5 @@ void pop_conf_init(struct pop_c* pop_conf)
 	//all rates are per 1000
 	pop_conf->cross_rate = 700;
 	pop_conf->mut_rate = 2;
-	pop_conf->n_of_runs = 1;
+	pop_conf->n_of_runs = 5;
 }

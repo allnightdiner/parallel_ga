@@ -91,7 +91,8 @@ test(struct pop_c* pop_conf, struct test_c* test_conf)
 
 	for(*i = test_conf->start; *i <= test_conf->end; *i += test_conf->inc)
 	{
-		sprintf(file_id, "%s_%d_solutions", test_conf->test_id, *i);
+		sprintf(file_id, "%s%s_%d_solutions", GRAPH_OUT_DIR, 
+		    test_conf->test_id, *i);
 		multiple_runs(pop_conf, file_id);
 
 		sprintf(dir, "%s%s/%d", GRAPH_OUT_DIR, test_conf->test_id, *i);
@@ -99,7 +100,6 @@ test(struct pop_c* pop_conf, struct test_c* test_conf)
 		system(cmd);
 		sprintf(cmd, "mv *.png %s %s", file_id, dir);
 		system(cmd);
-		/* Very Dangerous. Fixing now */
 		system("rm *f *plot");		
 	}
 }

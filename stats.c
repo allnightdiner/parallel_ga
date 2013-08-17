@@ -143,9 +143,12 @@ void avg_all_ff(struct pop_c* pop_conf, struct pop_s* pop_stats, int x)
 	}
 }
 
-
+/* avg_a, avg_b, avg_w appear to be unitialized. Function has no references in
+ * code base commenting out function to stop compiler warnings. 
+ */
 void std_dev_af(struct pop_c* pop_conf, struct pop_s* pop_stats, int x)
 {
+/*
 	int i, j;
 	int tmp_a, tmp_b, tmp_w, tmp;
 	int avg_a, avg_b, avg_w;
@@ -174,6 +177,7 @@ void std_dev_af(struct pop_c* pop_conf, struct pop_s* pop_stats, int x)
 		pop_stats->best_fit[i] = sqrt(pop_stats->best_fit[i]/x);
 		pop_stats->worst_fit[i] = sqrt(pop_stats->worst_fit[i]/x);
 	}
+*/
 }
 
 int avg_lg(struct pop_c* pop_conf, struct pop_s* pop_stats)

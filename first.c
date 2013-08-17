@@ -85,9 +85,6 @@ test(struct pop_c* pop_conf, struct test_c* test_conf)
 	system(cmd);
 	sprintf(cmd, "mkdir %s%s", GRAPH_OUT_DIR, test_conf->test_id);
 	system(cmd);
-	snprintf(dir, MAX_FILENAME_LEN, "%s", GRAPH_OUT_DIR);
-	
-	chdir(dir);
 
 	for(*i = test_conf->start; *i <= test_conf->end; *i += test_conf->inc)
 	{
@@ -100,7 +97,8 @@ test(struct pop_c* pop_conf, struct test_c* test_conf)
 		system(cmd);
 		sprintf(cmd, "mv *.png %s %s", file_id, dir);
 		system(cmd);
-		system("rm *f *plot");		
+		sprintf(cmd, "rm %s*f %s*plot", GRAPH_OUT_DIR, GRAPH_OUT_DIR);
+		system(cmd);		
 	}
 }
 

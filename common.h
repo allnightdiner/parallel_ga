@@ -9,7 +9,7 @@
 #define R(x)			(rand()/((RAND_MAX)/x+1))	
 #define MAX_FILENAME_LEN	120
 #define MAX_COMMAND_LEN		256
-#define GRAPH_OUT_DIR "~/projects/parallel_ga/graphs"
+#define GRAPH_OUT_DIR "/home/rwblair/projects/parallel_ga/graphs/"
 
 /* These make up the individuals of the population. 
  * fitness: the fitness of this particular individual.
@@ -29,7 +29,8 @@ struct state {
  * for.
  * sum: The summation of the population size. Used for fitness proportianete 
  * selection. 
- * goal_fit: target fitness for a solution in the population, once achieved a run
+ * goal_fit: target fitness for a solution in the population, once achieved a 
+ * run
  * will stop.
  * cross_rate: the rate of cross over during reproduction of the population.
  * mut_rate: same as above but for mutation. Mutation is done randomly on each

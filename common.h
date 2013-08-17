@@ -8,6 +8,8 @@
 */
 #define R(x)			(rand()/((RAND_MAX)/x+1))	
 #define MAX_FILENAME_LEN	120
+#define MAX_COMMAND_LEN		256
+#define GRAPH_OUT_DIR "./graphs"
 
 /* These make up the individuals of the population. 
  * fitness: the fitness of this particular individual.

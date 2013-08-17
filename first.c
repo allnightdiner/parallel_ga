@@ -14,8 +14,6 @@
 #include "from_file.h"
 #include "to_file.h"
 
-#define GRAPH_OUT_DIR "./graphs"
-
 void
 full_run(struct pop_c* pop_conf, struct pop_s* pop_stats, char* to_file_id)
 {
@@ -80,12 +78,16 @@ void
 test(struct pop_c* pop_conf, struct test_c* test_conf)
 {
 	int* i = test_conf->to_test;
-	char file_id[40];
-	char cmd[80];
-	char dir[40];
+	char file_id[MAX_FILENAME_LEN];
+	char cmd[MAX_COMMAND_LEN];
+	char dir[MAX_FILENAME_LEN];
 	sprintf(cmd, "rm -r %s%s", GRAPH_OUT_DIR, test_conf->test_id);
+	system(cmd);
 	sprintf(cmd, "mkdir %s%s", GRAPH_OUT_DIR, test_conf->test_id);
 	system(cmd);
+	snprintf(dir, MAX_FILENAME_LEN, "%s", GRAPH_OUT_DIR);
+	
+	chdir(dir);
 
 	for(*i = test_conf->start; *i <= test_conf->end; *i += test_conf->inc)
 	{

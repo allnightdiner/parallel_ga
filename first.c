@@ -83,7 +83,7 @@ test(struct pop_c* pop_conf, struct test_c* test_conf)
 	char dir[MAX_FILENAME_LEN];
 	sprintf(cmd, "rm -r %s%s", GRAPH_OUT_DIR, test_conf->test_id);
 	system(cmd);
-	sprintf(cmd, "mkdir %s%s", GRAPH_OUT_DIR, test_conf->test_id);
+	sprintf(cmd, "mkdir -p %s%s", GRAPH_OUT_DIR, test_conf->test_id);
 	system(cmd);
 
 	for(*i = test_conf->start; *i <= test_conf->end; *i += test_conf->inc)
@@ -93,12 +93,12 @@ test(struct pop_c* pop_conf, struct test_c* test_conf)
 		multiple_runs(pop_conf, file_id);
 
 		sprintf(dir, "%s%s/%d", GRAPH_OUT_DIR, test_conf->test_id, *i);
-		sprintf(cmd, "mkdir %s", dir);
+		sprintf(cmd, "mkdir -p %s", dir);
 		system(cmd);
 		sprintf(cmd, "mv *.png %s %s", file_id, dir);
 		system(cmd);
 		sprintf(cmd, "rm %s*f %s*plot", GRAPH_OUT_DIR, GRAPH_OUT_DIR);
-		system(cmd);		
+		system(cmd);
 	}
 }
 

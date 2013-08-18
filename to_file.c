@@ -14,9 +14,9 @@ void mk_ff_plot(struct pop_c* pop_conf)
 	fprintf(out, "set terminal png\n");
 	fprintf(out, "set xrange [1:%d]\n", pop_conf->length_of_run);
 	fprintf(out, "set yrange [0:%d]\n", pop_conf->pop_size);
-	fprintf(out, "set output \"%dfreq.png\"\n", 
+	fprintf(out, "set output \"%s%dfreq.png\"\n", GRAPH_OUT_DIR,
 	    pop_conf->id);
-	fprintf(out, "plot ");	
+	fprintf(out, "plot ");
 	for(i = 0; i < pop_conf->goal_fit; i++)
 	{
 		fprintf(out, "\"%s%dff\" using 1:%d title \"%d\" with l, ",

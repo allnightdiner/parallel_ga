@@ -95,8 +95,6 @@ test(struct pop_c* pop_conf, struct test_c* test_conf)
 		sprintf(dir, "%s%s/%d", GRAPH_OUT_DIR, test_conf->test_id, *i);
 		sprintf(cmd, "mkdir -p %s", dir);
 		system(cmd);
-		sprintf(cmd, "mv *.png %s %s", file_id, dir);
-		system(cmd);
 		sprintf(cmd, "rm %s*f %s*plot", GRAPH_OUT_DIR, GRAPH_OUT_DIR);
 		system(cmd);
 	}

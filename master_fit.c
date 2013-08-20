@@ -15,7 +15,7 @@
 
 #include "common.h"
 
-#define MAXNCHILD 4
+#define MAXNCHILD 1
 
 void 
 population_fitness(struct pop_c* pop_conf, struct state** population)
@@ -35,11 +35,13 @@ population_fitness(struct pop_c* pop_conf, struct state** population)
 	}
 
 	/* spawn the child tasks */
-	info = pvm_spawn("slave", (char**)0, PvmTaskDefault, (char*)0,
-	    ntask, child);
+	info = pvm_spawn("/home/rwblair/projects/parallel_ga/slave", (char**)0, 
+	    PvmTaskDefault, (char*)0, ntask, child);
 	/* only proceeds if all children properly spawned. It doesn't have to be
 	 * this way but its easiest
 	 */
+	printf("result of pvm_spawn call: %d\n", info);
+	printf("value of first index of child array: %d\n", child[0]);
 	if (info != ntask) 
 	{
 		pvm_exit(); 
@@ -65,7 +67,7 @@ population_fitness(struct pop_c* pop_conf, struct state** population)
 		pvm_pkint(population[i]->configuration, pop_conf->n, 1);
 
 		if ((i == pop_conf->pop_size -1) || 
-		    (((pop_conf->pop_size / 4)) * (j + 1)) - 1 == i)
+		    (((pop_conf->pop_size / MAXNCHILD)) * (j + 1)) - 1 == i)
 		{
 			info = pvm_send(child[j++], 0);
 		}
@@ -81,6 +83,7 @@ population_fitness(struct pop_c* pop_conf, struct state** population)
 		recv_ret = pvm_recv(-1, -1);
 		pvm_upkint(&recv_index, 1, 1);
 		pvm_upkint(&recv_fit, 1, 1);	
+		printf("recieved fitness: %d\n", recv_fit);
 		population[recv_index]->fitness = recv_fit;
 		/*
 		if ((recv_index < 0) || (recv_index >= pop_conf->pop_size))

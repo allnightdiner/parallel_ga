@@ -62,10 +62,10 @@ silly_init(struct pop_c* pop_conf, struct state** population)
 void pop_conf_init(struct pop_c* pop_conf)
 {
 	pop_conf->id = 0;
-	pop_conf->pop_size = 200;
+	pop_conf->pop_size = 50;
 	pop_conf->n = 8;
 	pop_conf->generation = 0;
-	pop_conf->length_of_run = 100;
+	pop_conf->length_of_run = 20;
 	pop_conf->sum = ((pop_conf->pop_size * pop_conf->pop_size) + 
 	    pop_conf->pop_size)/2;
 	pop_conf->goal_fit = pop_conf->n;

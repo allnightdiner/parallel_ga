@@ -14,8 +14,6 @@
 #include "from_file.h"
 #include "to_file.h"
 
-#define GRAPH_OUT_DIR "./graphs"
-
 void
 full_run(struct pop_c* pop_conf, struct pop_s* pop_stats, char* to_file_id)
 {
@@ -46,6 +44,7 @@ full_run(struct pop_c* pop_conf, struct pop_s* pop_stats, char* to_file_id)
 	}
 
 	individual_to_file(pop_conf,(population[0])->configuration, to_file_id);
+	pop_to_file(pop_conf, population, to_file_id);
 	
 	free_population(pop_conf, population);
 }
@@ -58,7 +57,6 @@ main(int argc, char** argv)
 	struct pop_s* pop_stats = malloc(sizeof(struct pop_s));
 
 	char* cross_id = "crossover";	
-	
 	full_run(pop_conf, pop_stats, cross_id);
 
 	return 0;

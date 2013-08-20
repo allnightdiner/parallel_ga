@@ -63,7 +63,6 @@ void multiple_runs(struct pop_c* pop_conf, char* file_id)
 	pop_conf->id = 0;
 	for(i = 0; i < pop_conf->n_of_runs; i++)
 	{
-		printf("run %d\n", i);
 		pop_conf->id = i;
 		full_run(pop_conf, pop_stats, file_id);	
 		af_to_file(pop_conf, pop_stats);

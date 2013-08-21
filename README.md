@@ -15,9 +15,6 @@ first.c covers the main overview of this version. the main function in first.c c
 
 # TODO #
 
-There is a dangerous line in first.c that needs to be replaced:
-system("rm *f *plot");
-
-Working to generate all gnuplot files in a tmp working directory and then remove that instead of shitting all over the current working directory >:o
-
 Replace instances of sprintf with snprintf.
+
+Majority of pvm functions do not check return values for error_handling. can lead to garbage in garbage out scenarios between master and slave.

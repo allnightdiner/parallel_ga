@@ -30,6 +30,7 @@ population_fitness(struct pop_c* pop_conf, struct state** population)
 
 	if (mytid < 0) 
 	{ 
+		/* the perneially informative error message of my youth. */
 		pvm_perror("wat"); 
 		exit(-1);
 	}
@@ -61,7 +62,8 @@ population_fitness(struct pop_c* pop_conf, struct state** population)
 	}
 	
 	j = 0;
-	for (i = 0; i < pop_conf->pop_size; i++) {
+	for (i = 0; i < pop_conf->pop_size; i++) 
+	{
 		pvm_initsend(PvmDataDefault);
 		pvm_pkint(&i, 1, 1);
 		pvm_pkint(population[i]->configuration, pop_conf->n, 1);
